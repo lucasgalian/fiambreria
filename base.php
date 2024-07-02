@@ -1,4 +1,4 @@
-<?php include "header.php";?>
+<?php include "header.php"; ?>
 <?php
 /*
 if (empty($_SESSION['id_cliente'])) {
@@ -29,7 +29,7 @@ if (empty($_SESSION['id_cliente'])) {
                 </div>
             </div>
             <h3>Lista de Productos<a href="pedido.php"><i class="bi bi-cart3"></i></a></h3>
-            
+
             <table class="table-info table-bordered border-primary">
                 <thead>
                     <tr>
@@ -38,69 +38,77 @@ if (empty($_SESSION['id_cliente'])) {
                         <th>Descripcion</th>
                         <th>Accion</th>
                     </tr>
-                    <tbody>
+                <tbody>
                     <tr style="width:600px;">
-                          <?php
-                                $sql = "select * from producto";
-                                $result = mysqli_query($conexion, $sql);
-                                while ($mostrar = mysqli_fetch_array($result)) {
-                                ?>
-                       
+                        <?php
+                        $sql = "select * from producto";
+                        $result = mysqli_query($conexion, $sql);
+                        while ($mostrar = mysqli_fetch_array($result)) {
+                        ?>
+
                             <td style="width: 100px;"><?php echo $mostrar['codigo'] ?></td>
                             <td style="width: 100px;">
-                                <?php 
+                                <?php
                                 $id = $mostrar['id_producto'];
-                                $imagen= "static/img/" . $id . "/principal.jpg";
-                                if(!file_exists($imagen)){
-                                    $imagen="static/noimg.jpg";
+                                $imagen = "static/img/" . $id . "/principal.jpg";
+                                if (!file_exists($imagen)) {
+                                    $imagen = "static/noimg.jpg";
                                 }
-                                
+
                                 ?>
                                 <img src="<?php echo $imagen; ?>" alt="..." class="img-thumbnail">
                             </td>
                             <td style="width:300px;">
                                 Descripcion: <b><?php echo $mostrar['nombre'] ?></b> | <br>Precio del Producto: <b>$<?php echo $mostrar['precio'] ?></b>
-                                               | 
+                                |
                             </td>
                             <td style="width:300px;">
                                 <form action="" method="post">
-                                <input type="hidden" name="id_producto" value="<?php echo $mostrar['id_producto']; ?>" >
-                                    <input type="hidden" name="nombre" value="<?php echo $mostrar['nombre'];?>" >
+                                    <input type="hidden" name="id_producto" value="<?php echo $mostrar['id_producto']; ?>">
+                                    <input type="hidden" name="nombre" value="<?php echo $mostrar['nombre']; ?>">
                                     <input type="number" name="cantidad" value="1" style="width: 50px;"><br>
                                     <input type="hidden" name="precio" value="<?php echo $mostrar['precio']; ?>">
                                     <input type="submit" value="Agregar" name="btnAgregar">
                                 </form>
                             </td>
 
-                        </tr>
-                       <?php } ?>
+                    </tr>
+                <?php } ?>
 
-                    </tbody>
-                   
+                </tbody>
+
             </table>
         </div>
-        <?php 
-        if (isset($_REQUEST['btnAgregar'])){//declaro las variables al agregar c/u
-           // $id_producto = $_REQUEST['id_producto'];
-            $nombre=$_REQUEST["nombre"];
-            $cantidad=$_REQUEST["cantidad"];
-            $precio=$_REQUEST["precio"];
-            echo "id: $id_producto, producto:$nombre, cantidad: $cantidad";
-            //if (isset($indice)){
-               // $_SESSION["pedido"][$nombre]["id_producto"]= $id_producto;
-                $_SESSION["pedido"][$nombre]["cantidad"]= $cantidad; //Agreglos Sociativo Carrito -->>nombre
-                $_SESSION["pedido"][$nombre]["precio"]= $precio;
-                echo "<script>alert('Producto $nombre agregado con exito al carrito de compra');</script>";
-            /*}else{
-                $_SESSION['pedido'][$nombre]['cantidad']= $cantidad; //Agreglos Susceptivo Carrito -->>nombre
-                $_SESSION['pedido'][$nombre]['precio']= $precio;
-                echo "<script>alert('Producto $nombre agregado con exito al carrito de compra');</script>";
-            }*/
-        }
-    
-        
+        <?php
+        if (isset($_POST['btnAgregar'])) { //declaro las variables al agregar c/u
+
+            $nombre = $_POST["nombre"];
+            $cantidad = $_POST["cantidad"];
+            $precio = $_POST["precio"];
+                    //echo "id: $id_producto, producto:$nombre, cantidad: $cantidad";
+                   
+
+                    $_SESSION["pedido"][$nombre]["cantidad"] = $cantidad; //Agreglos Sociativo Carrito -->>nombre
+                    $_SESSION["pedido"][$nombre]["precio"] = $precio;
+                    echo "<script>alert('Producto $nombre agregado con exito al carrito de compra');</script>";
+                    /*}else{
+                    $_SESSION['pedido'][$nombre]['cantidad']= $cantidad; //Agreglos Susceptivo Carrito -->>nombre
+                    $_SESSION['pedido'][$nombre]['precio']= $precio;
+                    echo "<script>alert('Producto $nombre agregado con exito al carrito de compra');</script>";
+                }*/
+           
+        }    
+        /*if (isset($_POST['btnAgregar'])) { //declaro las variables al agregar c/u
+
+          
+            $cantidad = $_POST["cantidad"];
+            $precio = $_POST["precio"];
+
+            $sql = "INSERT INTO pedido_detalle(cantidad, precio) VALUES ('$cantidad', '$precio')";
+            $result = mysqli_query($conexion, $sql);
+        }*/
         ?>
-        
+
 
 </body>
 

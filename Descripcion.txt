@@ -1,0 +1,5 @@
+El software realiza la carga de productos para que el cliente realice una compra de lo que desea determinada por una sesión 
+*Registra usuarios nuevos, modifica y borra.
+*Ingresa productos, modifica y borra.
+*Abre sesión para realizar la suma de compras de producto, como también de eliminar producto ya seleccionado.
+*Falta realizar los roles tanto de administración como de cliente para cada unió realiza determinada actividad dentro del software
